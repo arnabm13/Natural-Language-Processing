@@ -1,0 +1,89 @@
+Grade: 42.00/50.00
+
+2 Deduction(s):
+
+--------------
+#1: 6.00 points
+Failing test: test_is_valid_tree: 
+        @points=6
+        Test that we can check if a parse tree is valid.
+        
+Traceback (most recent call last):
+  File "../assignments-sol/a1/a1_test.py", line 211, in test_is_valid_tree
+    self.assertTrue(is_valid_tree(tree, rules, ['John', 'books', 'flight']))
+AssertionError: False is not true
+
+source:
+    def test_is_valid_tree(self):
+         """
+         @points=6
+         Test that we can check if a parse tree is valid.
+         """
+         rules = [('S', ['NP', 'VP']),
+                  ('NP', ['N']),
+                  ('NP', ['D', 'N']),
+                  ('N', ['John', 'flight', 'book']),
+                  ('D', ['the', 'a']),
+                  ('VP', ['V', 'NP']),
+                  ('V', ['books', 'book', 'likes', 'hates']),
+                 ]
+         # Valid tree for "John books flight"
+         tree = Tree('S', [Tree('NP', [Tree('N', [Tree('John')])]),
+                           Tree('VP', [Tree('V', [Tree('books')]),
+                                       Tree('NP', [Tree('N', [Tree('flight')])])])])
+         self.assertTrue(is_valid_tree(tree, rules, ['John', 'books', 'flight']))
+         self.assertFalse(is_valid_tree(tree, rules, ['John', 'books', 'likes']))
+ 
+         # Valid tree for "John books the flight"
+         tree2 = Tree('S', [Tree('NP', [Tree('N', [Tree('John')])]),
+                           Tree('VP', [Tree('V', [Tree('books')]),
+                                       Tree('NP', [Tree('D', [Tree('the')]),
+                                                   Tree('N', [Tree('flight')])])])])
+ 
+         self.assertTrue(is_valid_tree(tree2, rules, ['John', 'books', 'the', 'flight']))
+         self.assertFalse(is_valid_tree(tree2, rules, ['John', 'books', 'flight']))
+ 
+         # Tree with an invalid rule: D :- flight
+         tree3 = Tree('S', [Tree('NP', [Tree('N', [Tree('John')])]),
+                            Tree('VP', [Tree('V', [Tree('books')]),
+                                        Tree('NP', [Tree('D', [Tree('flight')])])])])        
+         self.assertFalse(is_valid_tree(tree3, rules, ['John', 'books', 'flight']))
+--------------
+
+--------------
+#2: 2.00 points
+Failing test: test_is_valid_tree_order: 
+        @points=2
+        Test that we can check if a parse tree is valid.
+        Confirm that sentence order matches leaf order.
+        
+Traceback (most recent call last):
+  File "../assignments-sol/a1/a1_test.py", line 247, in test_is_valid_tree_order
+    self.assertTrue(is_valid_tree(tree, rules, ['John', 'books', 'flight']))
+AssertionError: False is not true
+
+source:
+    def test_is_valid_tree_order(self):
+         """
+         @points=2
+         Test that we can check if a parse tree is valid.
+         Confirm that sentence order matches leaf order.
+         """
+         rules = [('S', ['NP', 'VP']),
+                  ('NP', ['N']),
+                  ('NP', ['D', 'N']),
+                  ('N', ['John', 'flight', 'book']),
+                  ('D', ['the', 'a']),
+                  ('VP', ['V', 'NP']),
+                  ('V', ['books', 'book', 'likes', 'hates']),
+                 ]
+         # Valid tree for "John books flight"
+         tree = Tree('S', [Tree('NP', [Tree('N', [Tree('John')])]),
+                           Tree('VP', [Tree('V', [Tree('books')]),
+                                       Tree('NP', [Tree('N', [Tree('flight')])])])])
+         self.assertTrue(is_valid_tree(tree, rules, ['John', 'books', 'flight']))
+         self.assertFalse(is_valid_tree(tree, rules, ['John', 'books', 'likes']))
+         # new test:
+         self.assertFalse(is_valid_tree(tree, rules, ['John', 'flight', 'books']))
+--------------
+

@@ -1,0 +1,16 @@
+confusion matrix:
+        I-LOC  I-MISC  I-ORG  I-PER  O
+I-LOC     452     372    150    176  0
+I-MISC    228     131    122     88  0
+I-ORG     478     125    271    141  0
+I-PER     501      86    492    477  0
+O        4813   14312   2262   2356  0
+
+evaluation matrix:
+              I-LOC    I-MISC     I-ORG     I-PER    O
+precision  0.069839  0.008718  0.082196  0.147313  NaN
+recall     0.393043  0.230228  0.266995  0.306555  0.0
+f1         0.118604  0.016800  0.125696  0.198999  NaN
+
+average f1s: 0.115025
+
